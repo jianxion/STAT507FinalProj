@@ -1,0 +1,121 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    min-height: 100vh;
+}
+
+#author {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #007BFF;
+}
+
+h2 {
+    color: #007BFF;
+}
+
+
+.EDA {
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.plot {
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.Prediction {
+    /* max-width: 600px; */
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Prediction select {
+    margin-bottom: 20px;
+}
+
+
+.Prediction input[type="text"] {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
+.Prediction label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.Prediction button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.Prediction button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.MLResults {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+table {
+    width: 80%;
+    margin: 30px auto;
+    border-collapse: separate; /* Change from 'collapse' to 'separate' to handle cell spacing */
+    border-spacing: 0; 
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+    border: 2px solid blue; 
+    font-size: 16px;
+    text-align: center;
+}
+
+th, td {
+    border-right: 2px solid black; 
+    border-bottom: 2px solid black; 
+    padding: 8px; 
+}
+
+th {
+    background-color: #0044cc; 
+    color: white; 
+    font-weight: bold; 
+}
+
+tr:hover {
+    background-color: #f9f9f9; 
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+tr:last-child th, tr:last-child td {
+    border-bottom: none;
+}
+
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        function toggleFields() {
+            var model = document.getElementById('model_selection').value;
+            var nonlinearFields = document.getElementsByClassName('nonlinear');
+            for (var i = 0; i < nonlinearFields.length; i++) {
+                if (model != 'model1') { 
+                    nonlinearFields[i].style.display = 'block';
+                    nonlinearFields[i].querySelectorAll('input').forEach(input => input.required = true);
+                } else {
+                    nonlinearFields[i].style.display = 'none';
+                    nonlinearFields[i].querySelectorAll('input').forEach(input => input.required = false);
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body onload="toggleFields();">
+    <h1>Web Application for STAT 507 Final Project</h1>
+    <p id="author">Created by Jianxiong Shen, Michael Robert Kaye, Mengxue Zhang, Kaixian Mao</p>
+    <h2>Exploratory Data Analysis</h1>
+    <p>Here are our plots to visualize the dataset</p>
+    <div class="EDA" id="plot">
+        <div class="plot" id="plot1">{{ plot_div1|safe }}</div>
+        <div class="plot" id="plot2">{{ plot_div2|safe }}</div>
+        <div class="plot" id="plot3">{{ plot_div3|safe }}</div>
+        <div class="plot" id="plot4">{{ plot_div4|safe }}</div>
+        
+    </div>
+
+    <div class="MLResults">
+        <h2>Machine Learning Model Results</h1>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Mean CV RMSE</th>
+                <th>Test RMSE</th>
+                <th>Test R2 Score</th>
+            </tr>
+            <tr>
+                <td>Linear Model</td>
+                <td>6.68</td>
+                <td>6.21</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>Random Forest</td>
+                <td>6.68</td>
+                <td>6.21</td>
+                <td>0.56</td>
+            </tr>
+            <tr>
+                <td>XGBoost</td>
+                <td>6.19</td>
+                <td>5.79</td>
+                <td>0.62</td>
+            </tr>
+
+        </table>
+        
+        
+    </div>
+
+    <div class="Prediction">
+        <h2>Test Model Prediction</h1>
+        <p>You need to choose a model and enter values for all variables to enable the model to predict obesity rate.</p>
+        <form action="/predict_model" method="post">
+            <label for="model_selection">Choose a Model:</label>
+            <select name="model_selection" id="model_selection" onchange="toggleFields();">
+                <option value="model1">Linear Regression</option>
+                <!-- <option value="model2">Random Forest</option> -->
+                <option value="model3">XGBoost</option>
+            </select>
+            <div class="common">
+                <label for="aerobic">Enter a value for met aerobic fitness level rate</label>
+                <input type="text" name="aerobic" required>
+                <label for="disability">Enter a value for disablity rate</label>
+                <input type="text" name="disability" required>
+                <label for="depression">Enter a value for depression rate</label>
+                <input type="text" name="depression" required>
+                <label for="disability">Enter a value for disablity rate</label>
+                <input type="text" name="disability" required>
+                <label for="distress">Enter a value for mental distress rate</label>
+                <input type="text" name="distress" required>
+                <label for="drinking">Enter a value for binge drinking rate</label>
+                <input type="text" name="drinking" required>
+                <label for="sleep">Enter a value for short sleep duration rate</label>
+                <input type="text" name="sleep" required>
+                <label for="viggie">Enter a value for veggie consumption rate</label>
+                <input type="text" name="viggie" required>
+                <label for="fruit">Enter a value for fruit consumption rate</label>
+                <input type="text" name="fruit" required>
+                <label for="chronic">Enter a value for 2 or more chronic conditions rate</label>
+                <input type="text" name="chronic" required>
+                <label for="health">Enter a value for fair or poor health rate rate</label>
+                <input type="text" name="health" required>
+                <label for="physical">Enter a value for physical distress rate</label>
+                <input type="text" name="physical" required>
+                <label for="diabetes">Enter a value for diabetes rate</label>
+                <input type="text" name="diabetes" required>
+                <label for="asthma">Enter a value for asthma rate</label>
+                <input type="text" name="asthma" required>
+                <label for="dentist">Enter a value for dentist visit rate</label>
+                <input type="text" name="dentist" required>
+                <label for="blood">Enter a value for high blood pressure rate</label>
+                <input type="text" name="blood" required>
+                <label for="pain">Enter a value for severe joint pain rate rate</label>
+                <input type="text" name="pain" required>
+                <label for="inactivity">Enter a value for inactivity rate</label>
+                <input type="text" name="inactivity" required>
+                <label for="cholesterol">Enter a value for high cholesterol rate</label>
+                <input type="text" name="cholesterol" required>
+                <label for="activity">Enter a value for no activity rate rate</label>
+                <input type="text" name="activity" required>
+                <label for="unemployment">Enter a value for unemployment rate</label>
+                <input type="text" name="unemployment" required>
+                <label for="copd">Enter a value for copd rate</label>
+                <input type="text" name="copd" required>
+                <label for="checkup">Enter a value for checkup rate</label>
+                <input type="text" name="checkup" required>
+                <label for="smoking">Enter a value for smoking rate</label>
+                <input type="text" name="smoking" required>
+                <label for="medication">Enter a value for medication rate</label>
+                <input type="text" name="medication" required>
+                <label for="poverty">Enter a value for poverty rate</label>
+                <input type="text" name="poverty" required>
+                <label for="teeth">Enter a value for teeth rate</label>
+                <input type="text" name="teeth" required>
+
+            </div>
+
+            <div class="nonlinear" style="display: none;">
+                <label for="unhealthy">Enter a value for unhealthy mental days</label>
+                <input type="text" name="unhealthy" required>
+                <label for="alcohol">Enter a value for per capita alcohol consumption</label>
+                <input type="text" name="alcohol" required>
+                <label for="life">Enter a value for life expectancy</label>
+                <input type="text" name="life" required>
+                <label for="limitation">Enter a value for activity limitation rate</label>
+                <input type="text" name="limitation" required>
+                <label for="phyunhealthy">Enter a value for physically unhealthy days</label>
+                <input type="text" name="phyunhealthy" required>
+                <label for="food">Enter a value for food insecurity rate</label>
+                <input type="text" name="food" required>
+                <label for="transport">Enter a value for transport rate</label>
+                <input type="text" name="transport" required>
+                <label for="support">Enter a value for support rate</label>
+                <input type="text" name="support" required>
+                <label for="bills">Enter a value for bills rate</label>
+                <input type="text" name="bills" required>
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+</body>
+</html>
