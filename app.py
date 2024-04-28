@@ -41,7 +41,25 @@ def home():
     # Filter to the specific question of interest
     filtered_df = df[df["Question"] == "Children and adolescents aged 6-13 years meeting aerobic physical activity guideline"]
 
-    fig2 = px.bar(filtered_df, x='LocationAbbr', y='DataValue', title='Percentage of Children Meeting Aerobic Guidelines by State', labels={'LocationAbbr': 'State', 'DataValue': 'Percentage'})
+    # fig2 = px.bar(filtered_df, x='LocationAbbr', y='DataValue', title='Percentage of Children Meeting Aerobic Guidelines by State', labels={'LocationAbbr': 'State', 'DataValue': 'Percentage'})
+    # Calculate the average percentage per year across all locations
+    yearly_data = filtered_df.groupby('YearStart')['DataValue'].mean().reset_index()
+
+    # Convert YearStart to integer for proper plotting
+    filtered_df['YearStart'] = pd.to_numeric(filtered_df['YearStart'])
+
+    # Group data by state and year, calculating the mean for each group
+    heatmap_data = filtered_df.groupby(['LocationAbbr', 'YearStart'])['DataValue'].mean().reset_index()
+
+    # Pivot the data to create a matrix format suitable for a heatmap
+    heatmap_data_pivot = heatmap_data.pivot(index='LocationAbbr', columns='YearStart', values='DataValue')
+
+    # Create the heatmap
+    fig2 = px.imshow(heatmap_data_pivot, labels=dict(x="Year", y="State", color="Average Percentage"),
+                    title="Heatmap of Percentages of Children Meeting Aerobic Guidelines",
+                    aspect="auto", origin="lower")
+    fig2.update_xaxes(side="bottom")
+
 
     # EDA 3
     # Histogram of Data Values
@@ -63,6 +81,14 @@ def home():
     #Render the home page
     return render_template('index.html', plot_div1=Markup(plot_div1), plot_div2=Markup(plot_div2), plot_div3=Markup(plot_div3), \
                            plot_div4=Markup(plot_div4))  
+
+@app.route('/details', methods=['GET'])
+def get_details():
+    return render_template('details.html')
+
+@app.route('/analysis', methods=['GET'])
+def get_analysis():
+    return render_template('analysis.html')
 
 @app.route('/predict_model', methods=['POST'])
 def predict_model():

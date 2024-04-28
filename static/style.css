@@ -27,13 +27,25 @@ h2 {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: stretch;
+    
 }
 
 .plot {
+    width: 48%;
     margin: 10px auto;
     box-sizing: border-box;
 }
+
+
+
+.description {
+    margin-top: 20px;
+    display: block;
+    height: 350px;
+}
+
 
 .Prediction {
     /* max-width: 600px; */
@@ -118,4 +130,12 @@ tr:last-child th, tr:last-child td {
     border-bottom: none;
 }
 
+#mldescrip {
+    width: 100%;
+    height: 200px;
+}
 
+.dataclean {
+    /* margin-top: 20px; */
+    padding: 20px;
+}

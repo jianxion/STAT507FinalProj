@@ -27,12 +27,70 @@
     <h2>Exploratory Data Analysis</h1>
     <p>Here are our plots to visualize the dataset</p>
     <div class="EDA" id="plot">
-        <div class="plot" id="plot1">{{ plot_div1|safe }}</div>
-        <div class="plot" id="plot2">{{ plot_div2|safe }}</div>
-        <div class="plot" id="plot3">{{ plot_div3|safe }}</div>
-        <div class="plot" id="plot4">{{ plot_div4|safe }}</div>
+        <div class="plot" id="plot1">{{ plot_div1|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>The dataset accurately reflects the chronic disease indicators across different U.S. states.</li>
+                    <li>The data collected are up-to-date and follow a consistent methodology across all states, ensuring comparability.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What is the distribution of children meeting aerobic physical activity guidelines across the United States?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>Our findings from the choropleth map reveal significant variability in the percentages of children meeting the recommended aerobic physical activity guidelines across states. Higher activity levels are observed in states in the middle US than east and west coast, suggesting that these areas might have more effective programs or cultural influences that promote physical activity among children.</p>
+            </div>
+        </div>
+       
+        <div class="plot" id="plot2">{{ plot_div2|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What trends can be observed in the adherence to aerobic physical activity guidelines among children across the United States over the years?</p>
+                <p style="font-size: 20px;">Findings</p>
+               
+                <p>There is a notable variability in the percentages across different states for each year, with some states consistently showing higher percentages than others. This could indicate the effectiveness of localized health programs or the impact of state-level policies promoting physical activity.
+                    Over the years, some states show a trend of increasing compliance with aerobic guidelines, while others exhibit fluctuation or a decrease. These trends can inform public health initiatives and resource allocation to improve children's physical activity levels.
+                  States with higher percentages are not clustered in one particular region, indicating that geographic factors alone may not predict aerobic guideline compliance. Cultural, socio-economic, and policy differences at the state level likely play significant roles.</p>
+              
+            </div>
+              
+        </div>
+
+        <div class="plot" id="plot3">{{ plot_div3|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What is the distribution of percentages of children and adolescents in the United States meeting aerobic physical activity guidelines?</p>
+                
+                <p style="font-size: 20px;">Findings</p>
+             
+                <p>The most common range of percentages falls between 20% to 30%, indicating that in many states, only a quarter of children meet the aerobic guidelines.
+                  There are few states with very high percentages, suggesting these are outliers with exceptionally successful programs or measurement approaches.
+                  The distribution is skewed towards lower percentages, signifying a national trend where the majority of states have room for improvement in encouraging physical activity among children.</p>
+            </div>
+              
+        </div>
+
+        <div class="plot" id="plot4">{{ plot_div4|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Are there differences in meeting aerobic physical activity guidelines among different race groups?</p>
+                
+                <p style="font-size: 20px;">Findings</p>
+                
+                <p>The range of percentages varies significantly between race groups, suggesting disparities in physical activity levels.</li>
+                  Some race groups, such as Hawaiian or Pacific Islander non-Hispanic, have a wider interquartile range, indicating more variability within the group regarding physical activity.
+                  Outliers are present in several race groups, indicating that there are populations within these groups with significantly different experiences compared to the group's median.
+                  Comparing medians, certain race groups appear to have higher or lower median percentages, which may point to underlying systemic factors affecting physical activity levels.</p>
+            </div>
+              
+        </div>
         
     </div>
+
+    <div class="dataclean">
+        <h2>Data Cleaning For ML Models</h2>
+        <a href="{{url_for('get_analysis') }}">Click to see the code.</a>
+    </div>
+
 
     <div class="MLResults">
         <h2>Machine Learning Model Results</h1>
@@ -63,7 +121,9 @@
             </tr>
 
         </table>
-        
+        <div id="mldescrip">description for ml models</div>
+        <a href="{{ url_for('get_details') }}">Check the details for our ml models.</a>
+
         
     </div>
 
