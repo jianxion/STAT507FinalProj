@@ -132,10 +132,27 @@ tr:last-child th, tr:last-child td {
 
 #mldescrip {
     width: 100%;
-    height: 200px;
+    height: 450px;
 }
 
 .dataclean {
     /* margin-top: 20px; */
     padding: 20px;
+}
+
+#githublink {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;           
+    justify-content: center; 
+    align-items: center;          
+}
+
+video {
+    width: 540px;  
+    height: 420px; 
+  
 }

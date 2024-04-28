@@ -8,13 +8,10 @@
             var model = document.getElementById('model_selection').value;
             var nonlinearFields = document.getElementsByClassName('nonlinear');
             for (var i = 0; i < nonlinearFields.length; i++) {
-                if (model != 'model1') { 
-                    nonlinearFields[i].style.display = 'block';
-                    nonlinearFields[i].querySelectorAll('input').forEach(input => input.required = true);
-                } else {
-                    nonlinearFields[i].style.display = 'none';
-                    nonlinearFields[i].querySelectorAll('input').forEach(input => input.required = false);
-                }
+                
+                nonlinearFields[i].style.display = 'none';
+                nonlinearFields[i].querySelectorAll('input').forEach(input => input.required = false);
+                
             }
         }
     </script>
@@ -24,10 +21,162 @@
 <body onload="toggleFields();">
     <h1>Web Application for STAT 507 Final Project</h1>
     <p id="author">Created by Jianxiong Shen, Michael Robert Kaye, Mengxue Zhang, Kaixian Mao</p>
+    <a href="https://github.com/jianxion/STAT507FinalProj" id="githublink">Link to our code on GitHub</a>
+    <div class="container">
+        <video controls>
+            <source src="{{ url_for('static', filename='presentation_recording.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
     <h2>Exploratory Data Analysis</h1>
     <p>Here are our plots to visualize the dataset</p>
     <div class="EDA" id="plot">
         <div class="plot" id="plot1">{{ plot_div1|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>How prevalent is obesity across the US from 2019 to 2022?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>Obesity is prevalent across the United States. In 2022, the lowest rate was CO, which is still
+                    25.2%. The highest rate was Oklahoma at 42.9%. There is also a noticeable trend of higher
+                    obesity in the midwest and southern regions. The rates seem to be relatively stable year over
+                    year with similar patterns emerging and slight increases in obesity.</p>
+            </div>
+        </div>
+
+        <div class="plot" id="plot3">{{ plot_div3|safe }}
+            <div class="description">
+                
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>How are various health metrics related? Specifically, we are looking at obesity, aerobic fitness
+                    level, disability, depression, diabetes, fair or poor health rate, fruit and veggie consumption,
+                    smoking and poverty.</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>Heatmap represents pearson correlations, notable findings are below:</p>
+                <ol>
+                    <li>Poor health ( “Fair or poor self-rated health status among adults”) is correlated with disability
+                        &amp; diabetes (0.78 &amp; 0.85 )</li>
+                    <li>Meeting the aerobic fitness level is negatively associated with many negative outcomes. This
+                        shows the importance of physical health.</li>
+                    <li>Short sleep duration seams to have low correlations to everything (heat map for 2022 shows
+                        within rounded abs(0.3) for all except diabetes). This is surprising since sleep has been shown
+                        to be associated with good health.</li>
+                </ol>
+            </div>
+            
+        </div>  
+       
+        <div class="plot" id="plot2_1">{{ plot_div2_1|safe }}
+            
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Is obesity related to oral health in 2020?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>It appears that obesity is related to oral health. We can see this in both a positive association
+                    between obesity with losing teeth and a negative association between obesity and dental visits.
+                    This shows that regular dentist visits are linked to lower obesity and that obesity is linked to a
+                    higher risk of losing teeth. These seemingly unrelated components of health are in fact
+                    correlated.</p>
+            </div>
+        </div>
+
+       <div class="plot" id="plot2_2">{{ plot_div2_2|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Is obesity related to oral health in 2020?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>It appears that obesity is related to oral health. We can see this in both a positive association
+                    between obesity with losing teeth and a negative association between obesity and dental visits.
+                    This shows that regular dentist visits are linked to lower obesity and that obesity is linked to a
+                    higher risk of losing teeth. These seemingly unrelated components of health are in fact
+                    correlated.</p>
+            </div>
+        </div>
+
+         
+
+        <!--<div class="plot" id="plot4">{{ plot_div4|safe }}
+        </div> -->
+        <div class="plot" id="plot5">{{ plot_div5|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>It should be independent among observations in the dataset, so there should be
+                        no evident change.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>How did fruit consumption less than one time daily among adults change over time?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>From the graph It can be seen that overall color is darker in 2019, which means that in
+                    many states more adults consumed fruits less than one time daily. There is an obvious
+                    increasing trend over the year.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot6">{{ plot_div6|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>There should exist a positive correlation because when fruit consumption is high,
+                        it usually means a healthier lifestyle.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What is the relationship between fruit consumption less than one time daily and no
+                    leisure-time activity percentage among adults?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>The scatter plot shows that in both year 2019 and 2021 there is a positive relation
+                    between the fruit consumption rate and no-leisure-time activity rate. The healthiest state with
+                    lowest rate in both was DC in 2021, while the state with both highest rates is Puerto Rico in
+                    2019.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot7">{{ plot_div7|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>It should be independent among observations in the dataset, so there should be
+                        no evident change.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What is the difference of vegetable consumption less than one time daily among
+                    adults?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>From the bar plot above there is no obvious trend of percentage change. VI increases
+                    the most and IL decreases the most. So we may probably reject the null hypothesis. The top 5
+                    states with the highest increase are Virgina, South Carolina, Iowa, Vermont, South Dakota.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot8">{{ plot_div8|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>There should exist a positive relationship because the more vegetables
+                        consumed, it usually means less obesity rates.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>What is the relationship between vegetable consumption less than one time daily and
+                    obesity among adults?</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>The scatter plot shows that in both year 2019 and 2021 there is a positive relation
+                    between the vegetable consumption rate and obesity rate. Puerto Rico has the highest
+                    vegetable consumption rate in both years.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot9">{{ plot_div9|safe }}
             <div class="description">
                 <p style="font-size: 20px;">Assumptions</p>
                 <ul>
@@ -40,8 +189,7 @@
                 <p>Our findings from the choropleth map reveal significant variability in the percentages of children meeting the recommended aerobic physical activity guidelines across states. Higher activity levels are observed in states in the middle US than east and west coast, suggesting that these areas might have more effective programs or cultural influences that promote physical activity among children.</p>
             </div>
         </div>
-       
-        <div class="plot" id="plot2">{{ plot_div2|safe }}
+        <div class="plot" id="plot10">{{ plot_div10|safe }}
             <div class="description">
                 <p style="font-size: 20px;">EDA Questions</p>
                 <p>What trends can be observed in the adherence to aerobic physical activity guidelines among children across the United States over the years?</p>
@@ -52,10 +200,8 @@
                   States with higher percentages are not clustered in one particular region, indicating that geographic factors alone may not predict aerobic guideline compliance. Cultural, socio-economic, and policy differences at the state level likely play significant roles.</p>
               
             </div>
-              
         </div>
-
-        <div class="plot" id="plot3">{{ plot_div3|safe }}
+        <div class="plot" id="plot11">{{ plot_div11|safe }}
             <div class="description">
                 <p style="font-size: 20px;">EDA Questions</p>
                 <p>What is the distribution of percentages of children and adolescents in the United States meeting aerobic physical activity guidelines?</p>
@@ -66,10 +212,8 @@
                   There are few states with very high percentages, suggesting these are outliers with exceptionally successful programs or measurement approaches.
                   The distribution is skewed towards lower percentages, signifying a national trend where the majority of states have room for improvement in encouraging physical activity among children.</p>
             </div>
-              
         </div>
-
-        <div class="plot" id="plot4">{{ plot_div4|safe }}
+        <div class="plot" id="plot12">{{ plot_div12|safe }}
             <div class="description">
                 <p style="font-size: 20px;">EDA Questions</p>
                 <p>Are there differences in meeting aerobic physical activity guidelines among different race groups?</p>
@@ -81,8 +225,81 @@
                   Outliers are present in several race groups, indicating that there are populations within these groups with significantly different experiences compared to the group's median.
                   Comparing medians, certain race groups appear to have higher or lower median percentages, which may point to underlying systemic factors affecting physical activity levels.</p>
             </div>
-              
         </div>
+        <div class="plot" id="plot13">{{ plot_div13|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Find the Overall percentage of US adults who had no physical activity within the previous
+                    month from 2019-2022.</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>Generally, high percentage states remain high, low percentage states remain low over time.
+                    Mississippi remained top 1 or 2 (36.9 in 2019, 28.9% in 2020, 30.2% in 2021 and 30.9% in 2022),
+                    followed by AR(Arizona), OK(Oklahoma), KY(Kentucky) and AL(Alabama). Washington, Utah, and
+                    Colorado remained the bottom three where they reported lowest overall percentage of adults having no
+                    physical activities within the previous month over time (less than 19%).</p>
+            </div>
+        </div>
+        <div class="plot" id="plot16">{{ plot_div16|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>For high school student, find the overall percentage of soda consumption at least once daily in
+                    all locations in 2019 and 2021. Then, find the locations which reported higher overall percentage in 2021
+                    vs 2019. For these locations, find the percentage of soda consumption at least once daily by grade.</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>Among the locations where the percentage of high school students who consume at least one
+                    soda daily rises over time, relatively, high percentage locations remained high and low percentage
+                    locations remained low. West Virginia, Puerto Rico, and Kentucky are the three locations where most
+                    proportion of high school students consumed at least one soda daily. Across all the locations, each grade
+                    contributed to the total percentage of high school students consuming at least one soda daily almost
+                    equally.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot14">{{ plot_div14|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Find the percentage of US adults having no physical activity within the previous month in year
+                    2022 stratified by sex.</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>in year 2022, Puerto Rico had the most percentage where adults had no physical activity within
+                    the previous month (47.7% female, 37.7% male), followed by Mississippi (34.2% female, 27.4% male),
+                    Arizona (33.5% female, 26.8% male), and Guam (33.4% female, 24% male). Generally, the percentage of
+                    females and males having no physical activity within the previous month follow the same trend across
+                    all the locations. However, in all locations other than North Dakota, significantly more females reported
+                    having no physical activity within the previous month than males.</p>
+            </div>
+        </div>
+        <div class="plot" id="plot15">{{ plot_div15|safe }}
+            <div class="description">
+                <p style="font-size: 20px;">Assumptions</p>
+                <ul>
+                    <li>observations in the dataset are independent of each other, data sample is representative
+                        of the population.</li>
+                </ul>
+                <p style="font-size: 20px;">EDA Questions</p>
+                <p>Find the percentage of adults having no physical activity within the previous month in year
+                    2022 stratified by race/ethnicity.</p>
+                <p style="font-size: 20px;">Findings</p>
+                <p>in year 2022, Maryland (40.4%) reported most percentage of white, non-Hispanic people who
+                    had no physical activity within the previous month. The most proportion of black, non-Hispanic people
+                    in Nevada (40.4%) had no physical activity within the previous months. For Asians, the location with the
+                    highest percentage is New Jersey (40.4%).</p>
+            </div>
+        </div> 
         
     </div>
 
@@ -93,7 +310,7 @@
 
 
     <div class="MLResults">
-        <h2>Machine Learning Model Results</h1>
+        <h2>Machine Learning Model Results (Prediction of Obesity Rate Based off Various Health Metrics)</h1>
         <table>
             <tr>
                 <th>Model</th>
@@ -103,26 +320,42 @@
             </tr>
             <tr>
                 <td>Linear Model</td>
-                <td>6.68</td>
-                <td>6.21</td>
-                <td>0.56</td>
+                <td>6.78</td>
+                <td>6.07</td>
+                <td>0.35</td>
             </tr>
             <tr>
                 <td>Random Forest</td>
-                <td>6.68</td>
-                <td>6.21</td>
-                <td>0.56</td>
+                <td>5.68</td>
+                <td>5.77</td>
+                <td>0.61</td>
             </tr>
             <tr>
                 <td>XGBoost</td>
-                <td>6.19</td>
-                <td>5.79</td>
-                <td>0.62</td>
+                <td>5.74</td>
+                <td>6.16</td>
+                <td>0.55</td>
             </tr>
 
         </table>
-        <div id="mldescrip">description for ml models</div>
-        <a href="{{ url_for('get_details') }}">Check the details for our ml models.</a>
+        <div id="mldescrip">
+            <h3>Summary of Findings</h3>
+            <p>This model utilized crude estimates of group level, rate based data that was aggregated by state, race, and year.  A five fold cross validation procedure with 80% of the data being utilized as training and the remaining 20% used for testing was utilized to test the accuracy of the models.  A linear model, gradient boostind model, and random forest model were all assessed to find the best option.</p>
+ 
+            <p>Ultimately, the Random Forest method produced the best results.  In order to optimize these results a grid based method was used which ran 8,100 different combinations.  The optimal parameters found were as follows: 300 estimators, the minimum samples per leaf was 1, minimum sample split was 1, maximum depth was 30, and the bootstrap method was not used.  These parameters produced an rmse of 5.77 and a 0.61 R2 score, which is substancially better than the linear models R2 of 0.35.</p>
+    
+            <p>Top Features:</p>
+            <ol>
+                <li>Disability (15.7%)</li>
+                <li>Fair or Poort Health (8.61%)</li>
+                <li>Diabetes (7.9%)</li>
+                <li>No Leisure Time Physical Activity (7.78%)</li>
+                <li>Depression (6.9%)</li>
+            </ol>
+            <p>These findings, in connection with our EDA dashboard, further show how many different health metrics relate to obesity.  The fact that these values are somewhat close in value indicates that there is not one tell tale sign that will indicate a high obesity rate in a population but rather it is a mix of many health componants.</p>
+       
+        </div>
+       
 
         
     </div>
@@ -134,7 +367,7 @@
             <label for="model_selection">Choose a Model:</label>
             <select name="model_selection" id="model_selection" onchange="toggleFields();">
                 <option value="model1">Linear Regression</option>
-                <!-- <option value="model2">Random Forest</option> -->
+                <option value="model2">Random Forest</option>
                 <option value="model3">XGBoost</option>
             </select>
             <div class="common">
