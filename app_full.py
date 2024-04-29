@@ -1,20 +1,9 @@
 from flask import Flask, request, render_template, Markup
 import joblib
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.express as px
 from plotly.offline import plot
 from flask import Markup
-import numpy as np
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
-import matplotlib.pyplot as plt
-import seaborn as sns
-import os
-from dash import Dash, dcc, html
 from scipy.stats import linregress
 import plotly.graph_objs as go
 
